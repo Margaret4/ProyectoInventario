@@ -1,0 +1,30 @@
+<div class="container p-4">
+    <div class="row">
+        {{#each proveedores}}
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <a href="{{name}}" target='_blank'>
+                        <h3 class="card-title text-uppercase">
+                            {{name}}
+                        </h3>
+                        <h2>{{cod}}</h2>
+                    </a>
+                    <a href="proveedores/delete/{{id}}" class="btn btn-danger">Eliminar</a>
+                    <a href="proveedores/edit/{{id}}" class="btn btn-secondary">Editar</a>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>No hay canciones</p>
+                <a href="/proveedores/add" class='btn btn-success'>Create one</a>
+                <img src="/img/pinguino.jpg" width="300" height="300">
+                <p>o muere</p>
+
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
