@@ -1,0 +1,23 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto"> <!--esto lo centra-->
+            <div class="card">
+                <div class="card-body">
+                    <form action="/almacenes/edit/{{almacen.id}}" method="POST">
+                        <div class="form-group">
+                            <input type="text" value = "{{almacen.name}} "  class="form-control" name="name" placeholder="Title" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" value = "{{almacen.cod}} "  class="form-control" name="codigo" placeholder="Title" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
