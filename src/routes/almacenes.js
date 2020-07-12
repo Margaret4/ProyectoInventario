@@ -10,13 +10,13 @@ router.post('/add',async(req,res)=>{
     console.log('aaah >:v');
     const {name,codigo}= req.body;
     var cod = parseInt(codigo)
-    const newProv = {
-        cod,name
+    const newAlm = {
+        cod,name,dir
         
     };
-    console.log(newProv);  //aaaqui >:v7
+    console.log(newAlm);  //aaaqui >:v7
 
-    await pool.query('INSERT INTO db_partent.almacen set  ?',[newProv]); //es como decirle que se espere a que responda pra continuar
+    await pool.query('INSERT INTO db_partent.almacen set  ?',[newAlm]); //es como decirle que se espere a que responda pra continuar
 
     //ya que public esta declarada en index como global no necesito mencionar toda su ruta
     req.flash('success','link saved successfully ');
@@ -44,13 +44,13 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
     const {name,codigo}= req.body;
     const {id} =req.params ;
     var cod = parseInt(codigo);
-    const newProv = {
-        cod,name
+    const newAlm = {
+        cod,name,dir
     };
-    console.log("<newProv>");
-    console.log(newProv);
-    console.log("<newProv>");
-    await pool.query('update almacen set ? where id = ?',[newProv,id]);
+    console.log("<newAlm>");
+    console.log(newAlm);
+    console.log("<newAlm>");
+    await pool.query('update almacen set ? where id = ?',[newAlm,id]);
     
     req.flash('success','almacen guardado');
     res.redirect('/almacenes');

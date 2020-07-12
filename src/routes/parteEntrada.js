@@ -3,14 +3,18 @@ const router = express.Router();
 const pool=require('../database'); 
 
 router.get('/add',(req,res)=>{
-    res.render('articulos/add');
+    const articulos =  pool.query('SELECT * FROM db_partent.articulo'); 
+    console.log(articulos);
+
+    res.render('parteEntrada/add',{articulos});
+    
 });
 //render == incrusta
 router.post('/add',async(req,res)=>{
     console.log('aaah >:v');
     const {name,codigo,uni,canti}= req.body;
     var cod = parseInt(codigo)
-    var cant = 0;
+    var cant = parseInt(canti)
     const newProv = {
         cod,name,uni,cant
         
@@ -43,7 +47,7 @@ router.get('/edit/:id',async(req,res)=>{ //se muestra en el link
 
 });
 router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
-    const {name,codigo,uni}= req.body;
+    const {name,codigo,canti,uni}= req.body;
     const {id} =req.params ;
     /*console.log("<req.body>");
     console.log(req.body);
@@ -52,7 +56,7 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
     console.log(req.params);
     console.log("</req.params>");*/
     var cod = parseInt(codigo);
-    var cant = 0;//parseInt(cant);
+    var cant = parseInt(codigo);
     const newProv = {
         cod,name, cant,uni
     };
@@ -68,7 +72,7 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
 
 router.get('/',async(req,res)=>{ 
     //const {id} =req.params ;
-    const articulos = await pool.query('SELECT * FROM db_partent.articulo'); 
+    const articulos = await pool.query('SELECT * FROM db_partent.partent'); 
     console.log(articulos);
     res.render('articulos/list',{articulos}); //como va a devolver arreglo para que no explote, le especifico que solo devuelva el primer elemento
    //nota: no pongo :id porque de por si uso edit.hbs y no necesita el id que recbe en la info del link\ 
