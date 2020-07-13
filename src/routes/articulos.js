@@ -7,7 +7,7 @@ router.get('/add',(req,res)=>{
 });
 //render == incrusta
 router.post('/add',async(req,res)=>{
-    console.log('aaah >:v');
+    
     const {name,codigo,uni,canti}= req.body;
     var cod = parseInt(codigo)
     var cant = 0;
@@ -26,25 +26,24 @@ router.post('/add',async(req,res)=>{
     
 });
 
-router.get('/delete/:id',async(req,res)=>{
-    const {id} =req.params ;
-    await pool.query('DELETE FROM db_partent.articulo WHERE ID =?',[id]);
+router.get('/delete/:cod',async(req,res)=>{
+    const {cod} =req.params ;
+    await pool.query('DELETE FROM db_partent.articulo WHERE cod =?',[cod]);
     req.flash('success','link deleted successfully ');
     res.redirect('/articulos');
 
 
 });
-router.get('/edit/:id',async(req,res)=>{ //se muestra en el link 
-    const {id} =req.params ;
-    const articulos = await pool.query('SELECT * FROM articulo WHERE id=?',[id]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un id 
-    
+router.get('/edit/:cod',async(req,res)=>{ //se muestra en el link 
+    const {cod} =req.params ;
+    const articulos = await pool.query('SELECT * FROM articulo WHERE cod=?',[cod]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
+    console.log(articulos)
     res.render('articulos/edit',{articulo:articulos[0]}); 
     console.log(articulo)
 
 });
-router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
+router.post('/edit/:cod',async(req,res)=>{ //pasan encriptados
     const {name,codigo,uni}= req.body;
-    const {id} =req.params ;
     /*console.log("<req.body>");
     console.log(req.body);
     console.log("<req.body>");
@@ -59,7 +58,7 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
     console.log("<newProv>");
     console.log(newProv);
     console.log("<newProv>");
-    await pool.query('update articulo set ? where id = ?',[newProv,id]);
+    await pool.query('update articulo set ? where cod = ?',[newProv,cod]);
     
     req.flash('success','articulo guardado');
     res.redirect('/articulos');
@@ -67,11 +66,11 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
 });
 
 router.get('/',async(req,res)=>{ 
-    //const {id} =req.params ;
+    //const {cod} =req.params ;
     const articulos = await pool.query('SELECT * FROM db_partent.articulo'); 
     console.log(articulos);
     res.render('articulos/list',{articulos}); //como va a devolver arreglo para que no explote, le especifico que solo devuelva el primer elemento
-   //nota: no pongo :id porque de por si uso edit.hbs y no necesita el id que recbe en la info del link\ 
+   //nota: no pongo :cod porque de por si uso edit.hbs y no necesita el cod que recbe en la info del link\ 
 
 });
 module.exports = router;

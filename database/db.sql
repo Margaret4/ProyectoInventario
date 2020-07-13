@@ -1,55 +1,31 @@
- CREATE DATABASE canciones;
 
-USE canciones;
+Use db_partent;
+CREATE TABLE `partent` (
+  
+  `cod` int(11) NOT NULL,
+  `codpro` int(11) NOT NULL,
+  `codalm` int(11) NOT NULL,
+  fecha date,
+  PRIMARY KEY (`cod`),
+  FOREIGN KEY (`codpro`) REFERENCES proveedor(cod),
+  FOREIGN KEY (`codalm`) REFERENCES almacen(cod)
+  );
 
---//tablas
+drop table partent;
+CREATE TABLE `detalle` (
+  
+  `cod` int(11) NOT NULL,
+  `codart` int(11) NOT NULL,
+  `codpe` int(11) NOT NULL,
+  `cant` varchar(20) NOT NULL,
+  PRIMARY KEY (`cod`),
+  FOREIGN KEY (codpe) REFERENCES partent(cod),
+  FOREIGN KEY (codart) REFERENCES articulo(cod)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---SINGER TABLE
-CREATE TABLE canciones.singers (
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    description TEXT,
-    name VARCHAR(150)NOT NULL,
-    PRIMARY KEY(id)
+CREATE TABLE `sessions` (
+  `session_id` varchar(128) PRIMARY KEY NOT NULL,
+  `expires` int unsigned NOT NULL,
+  `data` mediumtext
 );
---ALBUMS TABLE canciones.
-CREATE TABLE canciones.albums(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(150)NOT NULL,
-    url VARCHAR(255) NOT NULL, 
-    description  TEXT,
-    singer_id INT(11),
-    CONSTRAINT fk_singer FOREIGN KEY (singer_id) REFERENCES singers(id),
-    PRIMARY KEY(id)
-);
---SONGS TABLE
-CREATE TABLE canciones.songs(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(150)NOT NULL,
-    url VARCHAR(255) NOT NULL, 
-    description  TEXT,
 
-    album_id INT(11),
-
-
-    CONSTRAINT fk_album FOREIGN KEY (album_id) REFERENCES albums(id),
-    PRIMARY KEY(id)
-);
-ALTER TABLE songs 
-ADD PRIMARY KEY(id);
-ALTER TABLE songs 
-    MODIFY id int(11) NOT NULL AUTO_INCREMENT;
-
---TAGS TABLE
-
-CREATE TABLE canciones.tags(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(150) NOT NULL,
-    PRIMARY KEY (id)
-);
---SONGS_TAGS TABLE
-CREATE TABLE canciones.songs_tags(
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    tag_id INT(11),
-    song_id INT(11),
-    PRIMARY KEY(id)
-);

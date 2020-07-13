@@ -8,8 +8,8 @@ router.get('/add',(req,res)=>{
 //render == incrusta
 router.post('/add',async(req,res)=>{
     console.log('aaah >:v');
-    const {name,codigo}= req.body;
-    var cod = parseInt(codigo)
+    const {name,codigo,dir}= req.body;
+    cod = parseInt(codigo)
     const newAlm = {
         cod,name,dir
         
@@ -24,33 +24,33 @@ router.post('/add',async(req,res)=>{
     
 });
 
-router.get('/delete/:id',async(req,res)=>{
-    const {id} =req.params ;
-    await pool.query('DELETE FROM db_partent.almacen WHERE ID =?',[id]);
+router.get('/delete/:cod',async(req,res)=>{
+    const {cod} =req.params ;
+    await pool.query('DELETE FROM db_partent.almacen WHERE cod =?',[cod]);
     req.flash('success','link deleted successfully ');
     res.redirect('/almacenes');
 
 
 });
-router.get('/edit/:id',async(req,res)=>{ //se muestra en el link 
-    const {id} =req.params ;
-    const almacenes = await pool.query('SELECT * FROM almacen WHERE id=?',[id]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un id 
+router.get('/edit/:cod',async(req,res)=>{ //se muestra en el link 
+    const {cod} =req.params ;
+    const almacenes = await pool.query('SELECT * FROM almacen WHERE cod=?',[cod]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
     
     res.render('almacenes/edit',{almacen:almacenes[0]}); 
     console.log(almacen)
 
 });
-router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
-    const {name,codigo}= req.body;
-    const {id} =req.params ;
-    var cod = parseInt(codigo);
+router.post('/edit/:cod',async(req,res)=>{ //pasan encriptados
+    const {name,codigo,dir}= req.body;
+    const {cod} =req.params ;
+    cod = parseInt(codigo);
     const newAlm = {
         cod,name,dir
     };
     console.log("<newAlm>");
     console.log(newAlm);
     console.log("<newAlm>");
-    await pool.query('update almacen set ? where id = ?',[newAlm,id]);
+    await pool.query('update almacen set ? where cod = ?',[newAlm,cod]);
     
     req.flash('success','almacen guardado');
     res.redirect('/almacenes');
@@ -58,11 +58,11 @@ router.post('/edit/:id',async(req,res)=>{ //pasan encriptados
 });
 
 router.get('/',async(req,res)=>{ 
-    //const {id} =req.params ;
+    //const {cod} =req.params ;
     const almacenes = await pool.query('SELECT * FROM db_partent.almacen'); 
     console.log(almacenes);
     res.render('almacenes/list',{almacenes}); //como va a devolver arreglo para que no explote, le especifico que solo devuelva el primer elemento
-   //nota: no pongo :id porque de por si uso edit.hbs y no necesita el id que recbe en la info del link\ 
+   //nota: no pongo :cod porque de por si uso edit.hbs y no necesita el cod que recbe en la info del link\ 
 
 });
 module.exports = router;

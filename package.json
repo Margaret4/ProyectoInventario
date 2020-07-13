@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alfsnd/vue-bootstrap-select": "^0.4.4",
     "bcryptjs": "^2.4.3",
+    "bootstrap-select": "^1.13.18",
     "connect-flash": "^0.1.1",
     "core-util-is": "^1.0.2",
     "express": "^4.17.1",
@@ -25,6 +27,6 @@
     "timeago.js": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.4"
   }
 }
