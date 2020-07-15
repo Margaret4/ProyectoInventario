@@ -1,26 +1,31 @@
 <div class="container p-4">
     <div class="row">
-        <div class="col-md-4 mx-auto"> <!--esto lo centra-->
+        <div class="col-md-4 mx-auto">
+            <!--esto lo centra-->
             <div class="card">
                 <div class="card-body">
-                    <form action="/articulos/edit/{{articulo.id}}" method="POST">
+                    <p>Editar Parte entrada</p>
+                    <form action="/parteEntrada/edit/{{partent.cod}}" method="POST"></form>
                         <div class="form-group">
-                            <input type ="text" value = "{{articulo.name}} "  class="form-control" name="name" placeholder="Title" autofocus>
+                            <input type="text" value="{{partent.codalm}}" class="form-control" name="codpro" placeholder="Almacen" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" value = "{{articulo.cod}} "  class="form-control" name="codigo" placeholder="Title" autofocus>
+                            <input type="text" value="{{partent.codpro}}" class="form-control" name="codpro" placeholder="Proveedor" autofocus>
                         </div>
-                        <div class="form-group">
-                            <input type="text" value = "{{articulo.uni}} " class="form-control" name="uni" placeholder="unidad" autofocus>
-                        
+                        <p>Modificar detalle</p>
+                         <a href="detalle/edit/{{cod}}" class="btn btn-secondary">Editar</a>
+
                         <div class="form-group">
                             <button class="btn btn-success btn-block">
                                 Guardar
                             </button>
                         </div>
                     </form>
+
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>

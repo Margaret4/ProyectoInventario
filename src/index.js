@@ -53,7 +53,7 @@ app.use(require('./routes'));
 //app.use(require('./routes/authentication'));
 //app.use('/singers',require('./routes/links'));
 
-//app.use('/songs',require('./routes/songs'));
+app.use('/songs',require('./routes/songs'));
 app.use('/proveedores',require('./routes/proveedores'));
 app.use('/almacenes',require('./routes/almacenes'));
 app.use('/articulos',require('./routes/articulos'));

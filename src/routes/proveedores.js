@@ -34,7 +34,7 @@ router.get('/delete/:cod',async(req,res)=>{
 });
 router.get('/edit/:cod',async(req,res)=>{ //se muestra en el link 
     const {cod} =req.params ;
-    const proveedores = await pool.query('SELECT * FROM proveedores WHERE cod=?',[cod]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
+    const proveedores = await pool.query('SELECT * FROM proveedor WHERE cod=?',[cod]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
     
     res.render('proveedores/edit',{proveedor:proveedores[0]}); 
     console.log(proveedor)
