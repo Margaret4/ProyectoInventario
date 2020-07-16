@@ -58,6 +58,7 @@ app.use('/proveedores',require('./routes/proveedores'));
 app.use('/almacenes',require('./routes/almacenes'));
 app.use('/articulos',require('./routes/articulos'));
 app.use('/parteEntrada',require('./routes/parteEntrada'));
+app.use('/detalle',require('./routes/detalle'));
 //public 
 app.use(express.static(path.join(__dirname,'public'))) //
 //Starting the server
