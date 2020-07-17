@@ -1,9 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const pool=require('../database'); 
-
 router.get('/add',(req,res)=>{
-    res.render('almacenes/add');
+    var articulo = [];
+    pool.getConnection(function(err, conn){
+        conn.query("select * from articulo", function(err, rows){
+            if(err) {
+                throw err;
+            } else {
+                setValue(rows);
+            }
+        });
+        function setValue(value) {
+            articulo = value;
+            console.log(articulo);
+        }
+            res.render('almacenes/add',{articulo});
+    })
+
 });
 //render == incrusta
 router.post('/add',async(req,res)=>{

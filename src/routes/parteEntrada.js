@@ -1,22 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const pool=require('../database'); 
+//const articulos = await pool.query('SELECT * FROM db_partent.articulo'); 
 
-router.get('/add', (req, res) => {
-    res.render('parteEntrada/add', );
-
-});
 
 //render == incrusta
 router.post('/add', async (req, res) => {
-    
     console.log('aaah >:v');
-    const { name, codigo, uni, canti } = req.body;
-    cod = parseInt(codigo)
-    var cant = parseInt(canti)
+    const { codipro,codialm,codi } = req.body;
+    
+    var cod = parseInt(codi)
+    var codpro = parseInt(codipro)
+    var codalm = parseInt(codialm)
     const newPe = {
-        cod, name, uni, cant
-
+        cod,codpro,codalm,
     };
 
     console.log(newPe);  //aaaqui >:v7
@@ -25,14 +22,14 @@ router.post('/add', async (req, res) => {
 
     //ya que public esta declarada en index como global no necesito mencionar toda su ruta
     req.flash('success', 'link saved successfully ');
-    res.redirect('/parteEntrada');// "el redirect funciona como un return no se lee lo que le sigue" by coren
+    res.redirect('/detalle/add/'+codi);// "el redirect funciona como un return no se lee lo que le sigue" by coren
 
 });
 
 router.get('/delete/:cod', async (req, res) => {
     const { cod } = req.params;
     await pool.query('DELETE FROM db_partent.partent WHERE cod =?', [cod]);
-    req.flash('success', 'link deleted successfully ');
+    req.flash('success', 'Se elimino parte {{cod}}');
     res.redirect('/parteEntrada');
 
 
@@ -44,15 +41,8 @@ router.get('/edit/:cod', async (req, res) => { //se muestra en el link
     console.log(partents)
 
 });
-router.post('/edit/:cod', async (req, res) => { //pasan encriptados
+router.post('/edit/:cod', async (req, res) => { //pasan encriptados,en el sentido que no se ven por el link
     const { name, codpro, codalm, uni } = req.body;
-    //const {cod} =req.params ;
-    /*console.log("<req.body>");
-    console.log(req.body);
-    console.log("<req.body>");
-    console.log("<req.params>");
-    console.log(req.params);
-    console.log("</req.params>");*/
     cod = parseInt(codigo);
     
     var cant = parseInt(codigo);

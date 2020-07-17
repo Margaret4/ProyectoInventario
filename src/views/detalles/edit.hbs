@@ -5,14 +5,13 @@
             <div class="card">
                 <div class="card-body">
                     <p>Editar Detalle de Parte Entrada</p>
-                    <div class="row">
-                        <form action="/detalle/{{codpe}}">
-                            <button class="form-group btn btn-success btn-block">
-                                Atras 
-                            </button>
-                        </form>
-                    </div>
-                    <!--tiene que ser el codigo del pe-->
+                        <div class="row">
+                            <form action="/detalle/{{articulo.codpe}}">
+                                <button class="form-group btn btn-success btn-block">
+                                    Atras 
+                                </button>
+                            </form>
+                        </div>                    <!--tiene que ser el codigo del pe-->
                     <form action="/detalle/edit/{{articulo.codpe}}/{{articulo.codart}}" method="POST">
                     <div class="form-group">
                         <input type="text" value="{{articulo.codart}}" class="form-control" name="newcodart" placeholder="codigo articulo"
