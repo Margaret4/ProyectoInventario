@@ -9,6 +9,7 @@ router.get('/add', (req, res) => {
 
 //render == incrusta
 router.post('/add', async (req, res) => {
+    
     console.log('aaah >:v');
     const { name, codigo, uni, canti } = req.body;
     cod = parseInt(codigo)
@@ -76,4 +77,5 @@ router.get('/', async (req, res) => {
     //nota: no pongo :cod porque de por si uso edit.hbs y no necesita el cod que recbe en la info del link\ 
 
 });
+
 module.exports = router;

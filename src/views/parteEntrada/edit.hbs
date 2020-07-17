@@ -12,9 +12,12 @@
                         <div class="form-group">
                             <input type="text" value="{{partent.codpro}}" class="form-control" name="codpro" placeholder="Proveedor" autofocus>
                         </div>
-                        <p>Modificar detalle</p>
-                         <a href="detalle/edit/{{cod}}" class="btn btn-secondary">Editar</a>
-
+                        <p>Detalle </p>
+                        <form action="/detalle/{{partent.cod}}">
+                            <button class="form-group btn btn-success btn-block">
+                                Editar
+                            </button>
+                        </form>
                         <div class="form-group">
                             <button class="btn btn-success btn-block">
                                 Guardar

@@ -14,7 +14,7 @@ CREATE TABLE `partent` (
 drop table partent;
 CREATE TABLE `detalle` (
   
-  `cod` int(11) NOT NULL,
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
   `codart` int(11) NOT NULL,
   `codpe` int(11) NOT NULL,
   `cant` varchar(20) NOT NULL,
