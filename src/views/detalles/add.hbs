@@ -8,17 +8,25 @@
                     <div class="row">
                         <form action="/detalle/{{codpe}}">
                             <button class="form-group btn btn-success btn-block">
-                                Atras 
+                                Atrás 
                             </button>
                         </form>
                     </div>
 
                     <!--tiene que ser el codigo del pe-->
+                     <h6>Articulo</h6>
                     <form action="/detalle/add/{{codpe}}" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="codarti" placeholder="codigo articulo"
-                                autofocus>
+                            <select name="codarti">
+                            <option value="-1">Seleccionar articulo</option> 
+                            {{#each articulos}}
+                                <option value="{{cod}}">{{name}}</option> 
+                                {{else}}
+                                <option value="-1">No hay articulos </option> 
+                                {{/each}}
+                            </select>
                         </div>
+                         <h6>Cantidad</h6>
                         <div class="form-group">
                             <input type="text" class="form-control" name="canti" placeholder="Cantidad" autofocus>
                         </div>

@@ -1,4 +1,9 @@
-<div class="container p-4">
+<div class="container p-4 pre-scrollable" style="max-height: 90vh ;max-width: 100vw ; ">    
+    <div class="row">
+        <div class="col-12">
+            <h3>Proveedores {{estado}}</h3>
+        </div>
+    </div>
     <div class="row">
         {{#each proveedores}}
         <div class="col-md-3">
@@ -8,22 +13,21 @@
                         <h3 class="card-title text-uppercase">
                             {{name}}
                         </h3>
-                        <h2>{{cod}}</h2>
+                        <h4>codigo: {{cod}}</h4>
+                        <h4>estado: {{est}}</h4>
                     </a>
-                    <a href="proveedores/delete/{{cod}}" class="btn btn-danger">Eliminar</a>
-                    <a href="proveedores/edit/{{cod}}" class="btn btn-secondary">Editar</a>
+                    <a href="/proveedores/delete/{{cod}}/0" class="btn cambia form-group" >Cambiar Estado</a>
+                    <a href="/proveedores/delete/{{cod}}/1" class="btn btn-danger form-group">Eliminar</a>
+                    <a href="proveedores/edit/{{cod}}" class="btn btn-secondary form-group">Editar</a>
                 </div>
             </div>
         </div>
         {{else}}
-        
         <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
-                <p>No hay canciones</p>
-                <a href="/proveedores/add" class='btn btn-success'>Create one</a>
-                <img src="/img/pinguino.jpg" wcodth="300" height="300">
-                <p>o muere</p>
-
+                <p>No hay proveedores</p>
+                <a href="/proveedores/add" class='btn btn-success'>Crear proveedor</a>
+                
             </div>
         </div>
         {{/each}}

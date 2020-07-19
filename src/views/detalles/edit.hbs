@@ -5,27 +5,35 @@
             <div class="card">
                 <div class="card-body">
                     <p>Editar Detalle de Parte Entrada</p>
-                        <div class="row">
-                            <form action="/detalle/{{articulo.codpe}}">
-                                <button class="form-group btn btn-success btn-block">
-                                    Atras 
-                                </button>
-                            </form>
-                        </div>                    <!--tiene que ser el codigo del pe-->
-                    <form action="/detalle/edit/{{articulo.codpe}}/{{articulo.codart}}" method="POST">
-                    <div class="form-group">
-                        <input type="text" value="{{articulo.codart}}" class="form-control" name="newcodart" placeholder="codigo articulo"
-                            autofocus>
+                    <div class="row">
+                        <div class="col">
+                             <a href="/detalle/{{codpe}}/" class="btn btn-success">Atras</a>
+                        </div>
+                        
                     </div>
-                    <div class="form-group">
-                        <input type="text" value="{{articulo.cant}}" class="form-control" name="canti" placeholder="Cantidad"
-                            autofocus>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success btn-block">
-                            Guardar
-                        </button>
-                    </div>
+                    <!--tiene que ser el codigo del pe-->
+                    <form action="/detalle/edit/{{comprado.codpe}}/{{comprado.codart}}" method="POST">
+                        <div class="form-group">
+                            <h6>Articulo</h6>
+                                <select name="newcodart">
+                                    <option value="{{comprado.codart}}">{{comprado.codart}}</option> 
+                                    <option value="-1">Seleccionar articulo</option> 
+                                    {{#each articulos}}
+                                        <option value="{{cod}}">{{name}}</option> 
+                                        {{else}}
+                                        <option value="-1">No hay articulos </option> 
+                                        {{/each}}
+                                </select>
+                            </div>
+                        <div class="form-group">
+                            <input type="text" value="{{comprado.cant}}" class="form-control" name="canti" placeholder="Cantidad"
+                                autofocus>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                Guardar
+                            </button>
+                        </div>
                     </form>
 
                 </div>

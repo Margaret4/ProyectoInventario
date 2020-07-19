@@ -1,4 +1,10 @@
-<div class="container p-4">
+<div class="container p-4 pre-scrollable" style="max-height: 90vh ;max-width: 100vw ; ">
+
+    <div class="row">
+        <div class="col-12">
+            <h3>Almacenes {{estado}}</h3>
+        </div>
+    </div>
     <div class="row">
         {{#each almacenes}}
         <div class="col-md-3">
@@ -8,9 +14,15 @@
                         <h3 class="card-title text-uppercase">
                             {{name}}
                         </h3>
-                        <h2>{{cod}}</h2>
+                        <h5>estado:{{est}}</h5>
+                        
+      
+                        <h5>codigo:{{cod}}</h5>
+                        <h5>direccion:</h5>
+                        <p>{{dir}}</p>
                     </a>
-                    <a href="almacenes/delete/{{cod}}" class="btn btn-danger">Eliminar</a>
+                    <a href="almacenes/delete/{{cod}}/0" class="btn cambia form-group" >Cambiar Estado</a>
+                    <a href="/almacenes/delete/{{cod}}/1" class="btn btn-danger form-group">Eliminar</a>
                     <a href="almacenes/edit/{{cod}}" class="btn btn-secondary">Editar</a>
                 </div>
             </div>
@@ -19,9 +31,7 @@
         <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
                 <p>No hay almacenes</p>
-                <a href="/almacenes/add" class='btn btn-success'>Create one</a>
-                <img src="/img/pinguino.jpg" wcodth="300" height="300">
-                <p>o muere</p>
+                <a href="/almacenes/add" class='btn btn-success'>Crea un almacen</a>
 
             </div>
         </div>

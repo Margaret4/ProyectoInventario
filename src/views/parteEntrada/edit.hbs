@@ -7,17 +7,36 @@
                     <p>Editar Parte entrada</p>
                     <form action="/parteEntrada/edit/{{partent.cod}}" method="POST"></form>
                         <div class="form-group">
-                            <input type="text" value="{{partent.codalm}}" class="form-control" name="codpro" placeholder="Almacen" autofocus>
+                            <h6>Proveedor</h6>
+                            <select name="codipro">
+                            <option value="{{partent.codpro}}">{{partent.codpro}}</option> 
+                            {{#each proveedores}}
+                                <option value="{{cod}}">{{name}}</option> 
+                                {{else}}
+                                <option value="-1">No hay proveedores </option> 
+                                {{/each}}
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" value="{{partent.codpro}}" class="form-control" name="codpro" placeholder="Proveedor" autofocus>
+                             <h6>Almacen</h6>
+                            
+                            <select name="codialm">
+                            <option value="{{partent.codalm}}">{{partent.codalm}}</option> 
+                            {{#each almacenes}}
+                                <option value="{{cod}}">{{name}}</option> 
+                                {{else}}
+                                <option value="-1">No hay almacenes </option> 
+                                {{/each}}
+                            </select>
                         </div>
+
                         <p>Detalle </p>
-                        <form action="/detalle/{{partent.cod}}">
-                            <button class="form-group btn btn-success btn-block">
-                                Editar
-                            </button>
-                        </form>
+                        <div class="row">
+                            <div class="col form-group">
+                                 <a href="/detalle/{{partent.cod}}" class="btn btn-success">Editar </a>
+                            </div>
+                        
+                        </div>
                         <div class="form-group">
                             <button class="btn btn-success btn-block">
                                 Guardar

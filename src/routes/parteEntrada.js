@@ -4,14 +4,46 @@ const pool=require('../database');
 //const articulos = await pool.query('SELECT * FROM db_partent.articulo'); 
 
 
+router.get('/add', (req, res) => {    
+    var articulos = [];
+    var proveedores = [];
+    var almacenes = [];
+    pool.getConnection(function(err, conn){
+        conn.query("select * from proveedor where est = true", function(err, rows){
+            if(err) {
+                throw err;
+            } else {
+                setProvees(rows);
+            }
+        });
+        function setProvees(value) {
+            proveedores = value;
+        }
+        conn.query("select * from almacen where est = true", function(err, rows){
+            if(err) {
+                throw err;
+            } else {
+                setAlms(rows);
+            }
+        });
+        function setAlms(value) {
+            almacenes = value;
+                //console.log(almacenes,proveedores);
+                res.render('parteEntrada/add', {articulos,proveedores,almacenes}); 
+                //lo puse dentro porque asi lo cuenta para tomar los datos
+
+        }
+        
+    })
+});
+
 //render == incrusta
 router.post('/add', async (req, res) => {
     console.log('aaah >:v');
     const { codipro,codialm,codi } = req.body;
-    
-    var cod = parseInt(codi)
-    var codpro = parseInt(codipro)
-    var codalm = parseInt(codialm)
+    var cod = (codi)
+    var codpro = (codipro)
+    var codalm = (codialm)
     const newPe = {
         cod,codpro,codalm,
     };
@@ -21,38 +53,71 @@ router.post('/add', async (req, res) => {
     await pool.query('INSERT INTO db_partent.partent set  ?', [newPe]); //es como decirle que se espere a que responda pra continuar
 
     //ya que public esta declarada en index como global no necesito mencionar toda su ruta
-    req.flash('success', 'link saved successfully ');
+    req.flash('success', 'parte guardado ');
     res.redirect('/detalle/add/'+codi);// "el redirect funciona como un return no se lee lo que le sigue" by coren
 
 });
 
 router.get('/delete/:cod', async (req, res) => {
     const { cod } = req.params;
-    await pool.query('DELETE FROM db_partent.partent WHERE cod =?', [cod]);
-    req.flash('success', 'Se elimino parte {{cod}}');
-    res.redirect('/parteEntrada');
+    pool.getConnection(function(err, conn){
+        conn.query('DELETE FROM db_partent.partent WHERE cod like?', [cod], function(err, rows){
+            if(err) {
+                throw err;
+            }else{
+                req.flash('success', 'parte guardado');
+                res.redirect('/parteEntrada/');
+            }
 
-
-});
-router.get('/edit/:cod', async (req, res) => { //se muestra en el link 
-    const { cod } = req.params;
-    const partents = await pool.query('SELECT * FROM partent WHERE cod=?', [cod]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
-    res.render('parteEntrada/edit', { partent: partents[0] });
-    console.log(partents)
-
-});
-router.post('/edit/:cod', async (req, res) => { //pasan encriptados,en el sentido que no se ven por el link
-    const { name, codpro, codalm, uni } = req.body;
-    cod = parseInt(codigo);
+        });
+    });
     
-    var cant = parseInt(codigo);
+
+
+});
+router.get('/edit/:codi', async (req, res) => { //se muestra en el link 
+    const { codi } = req.params;
+    const partents = await pool.query('SELECT * FROM partent WHERE cod like ?', [codi]); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
+    console.log(partents)
+    var proveedores = [];
+    var almacenes = [];
+    pool.getConnection(function(err, conn){
+        conn.query("select * from proveedor where est = 1", function(err, rows){
+            if(err) {
+                throw err;
+            } else {
+                setProvees(rows);
+            }
+        });
+        function setProvees(value) {
+            proveedores = value;
+        }
+        conn.query("select * from almacen where est = 1", function(err, rows){
+            if(err) {
+                throw err;
+            } else {
+                setAlms(rows);
+            }
+        });
+        function setAlms(value) {
+            almacenes = value;
+            res.render('parteEntrada/edit', { partent: partents[0],proveedores,almacenes});
+        }
+        
+    })
+});
+
+router.post('/edit/:codi', async (req, res) => { 
+    const {codi}=req.params;
+    const { codigo, codpro, codalm} = req.body;
+    cod = (codigo);
     const newPe = {
-        cod, name, cant, uni,codpro,codalm
+        cod,codpro,codalm
     };
     console.log("<newPe>");
     console.log(newPe);
     console.log("<newPe>");
-    await pool.query('update partent set ? where cod = ?', [newPe, cod]);
+    await pool.query('update partent set ? where cod like ?', [newPe, codi]);
 
     req.flash('success', 'parte entrada guardado');
     res.redirect('/parteEntrada');
