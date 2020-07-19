@@ -5,10 +5,13 @@
             <div class="card">
                 <div class="card-body">
                     <p>Editar Parte entrada</p>
-                    <form action="/parteEntrada/edit/{{partent.cod}}" method="POST"></form>
+                    <form action="/parteEntrada/edit/{{partent.cod}}" method="POST">
+                        <div class="form-group">
+                            <input type="text" value="{{partent.cod}}" class="form-control" name="newcod" placeholder="codigo" autofocus>
+                        </div>
                         <div class="form-group">
                             <h6>Proveedor</h6>
-                            <select name="codipro">
+                            <select name="codpro">
                             <option value="{{partent.codpro}}">{{partent.codpro}}</option> 
                             {{#each proveedores}}
                                 <option value="{{cod}}">{{name}}</option> 
@@ -20,7 +23,7 @@
                         <div class="form-group">
                              <h6>Almacen</h6>
                             
-                            <select name="codialm">
+                            <select name="codalm">
                             <option value="{{partent.codalm}}">{{partent.codalm}}</option> 
                             {{#each almacenes}}
                                 <option value="{{cod}}">{{name}}</option> 

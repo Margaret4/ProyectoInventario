@@ -109,8 +109,8 @@ router.get('/edit/:codi', async (req, res) => { //se muestra en el link
 
 router.post('/edit/:codi', async (req, res) => { 
     const {codi}=req.params;
-    const { codigo, codpro, codalm} = req.body;
-    cod = (codigo);
+    const {newcod, codpro, codalm} = req.body;
+    var cod=newcod;
     const newPe = {
         cod,codpro,codalm
     };
