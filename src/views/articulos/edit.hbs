@@ -5,13 +5,16 @@
                 <div class="card-body">
                     <form action="/articulos/edit/{{articulo.cod}}" method="POST">
                         <div class="form-group">
-                            <input type ="text" value = "{{articulo.name}} "  class="form-control" name="name" placeholder="Title" autofocus>
+                            <h6>Nombre</h6>
+                            <input type ="text" value = "{{articulo.name}} "  class="form-control" name="name" placeholder="Nombre" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" value = "{{articulo.cod}} "  class="form-control" name="codigo" placeholder="Title" autofocus>
+                            <h6>Codigo</h6>
+                            <input type="text" value = "{{articulo.cod}} "  class="form-control" name="codigo" placeholder="codigo" autofocus>
                         </div>
-                        <div class="form-group">
-                            <input type="text" value = "{{articulo.uni}} " class="form-control" name="uni" placeholder="uncodad" autofocus>
+                        <div class="form-group mb-4">
+                            <h6>Unidad</h6>
+                            <input type="text" value = "{{articulo.uni}} " class="form-control" name="uni" placeholder="unidad" autofocus>
                         
                         <div class="form-group">
                             <button class="btn btn-success btn-block">

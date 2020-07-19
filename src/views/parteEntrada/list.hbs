@@ -1,5 +1,10 @@
 <div class="container p-4">
     <div class="row">
+        <div class="col-12">
+            <h3>Partes de Entrada</h3>
+        </div>
+    </div>
+    <div class="row">
         {{#each parts}}
         <div class="col-md-4">
             <div class="card text-center">
@@ -14,18 +19,19 @@
                         <!--<h4>monto:  {{articulo.monto}}</h4>-->
 
                     </a>
-                    <a href="parteEntrada/delete/{{cod}}" class="btn btn-danger">Eliminar</a>
-                    <a href="parteEntrada/edit/{{cod}}" class="btn btn-secondary">Editar</a>
+                    <a href="/parteEntrada/delete/{{cod}}" class="btn btn-danger">Eliminar</a>
+                    <!--Nota si no pongo / antes de la direccion se repite el parteEntrada, tiene que ver con que 
+                    le dije que le ponga el prefijo parteEntrada en router-->
+                    <a href="/parteEntrada/edit/{{cod}}" class="btn btn-secondary">Editar</a>
                 </div>
             </div>
         </div>
         {{else}}
         <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
-                <p>No hay articulos</p>
-                <a href="/articulos/add" class='btn btn-success'>crear articulo</a>
-                <img src="/img/pinguino.jpg" width="300" height="300">
-                <p>o muere</p>
+                <p>No hay partes de entrada</p>
+                <a href="/parteEntrada/add" class='btn btn-success'>Crear Parte Entrada</a>
+
 
             </div>
         </div>

@@ -7,6 +7,10 @@ body{
     width: 100vw;
     height: 100vh;
 }
+.cambia{
+    background-color: #dcae24;
+    color: white;
+}
 .masthead{
     color: white;
     min-height: 30rem;
