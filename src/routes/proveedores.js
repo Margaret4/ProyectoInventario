@@ -14,13 +14,12 @@ router.post('/add',async(req,res)=>{
         cod,name
         
     };
-    console.log(newProv);  //aaaqui >:v7
+    console.log(newProv);  
 
-    await pool.query('INSERT INTO db_partent.proveedor set  ?',[newProv]); //es como decirle que se espere a que responda pra continuar
+    await pool.query('INSERT INTO db_partent.proveedor set  ?',[newProv]); 
 
-    //ya que public esta declarada en index como global no necesito mencionar toda su ruta
     req.flash('success',"proveedor guardado");
-    res.redirect('/proveedores');// "el redirect funciona como un return no se lee lo que le sigue" by coren
+    res.redirect('/proveedores');
     
 });
 
@@ -37,12 +36,12 @@ router.get('/delete/:cod/:borrar',async(req,res)=>{
     res.redirect('/proveedores');
 });
 
-router.get('/edit/:cod',async(req,res)=>{ //se muestra en el link 
-    const {cod} =req.params ;
-    var proveedores = await pool.query('SELECT * FROM proveedor WHERE cod like ?',[cod+'%']); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
-    
+router.get('/edit/:codi',async(req,res)=>{ //se muestra en el link 
+    const {codi} =req.params ;
+    var proveedores = await pool.query('SELECT * FROM proveedor WHERE cod like ?',[codi+'%']); //lo va a devolver en un arreglo de uno porque pos solo hay uno con un cod 
+    console.log(proveedores)
     res.render('proveedores/edit',{proveedor:proveedores[0]}); 
-    console.log(proveedor)
+    
 
 });
 router.post('/edit/:codi',async(req,res)=>{ //pasan encriptados
@@ -55,7 +54,7 @@ router.post('/edit/:codi',async(req,res)=>{ //pasan encriptados
     console.log("<newProv>");
     console.log(newProv);
     console.log("<newProv>");
-    await pool.query('update proveedor set ? where cod = ?',[newProv,codi]);
+    await pool.query('update proveedor set ? where cod like ?',[newProv,codi]);
     
     req.flash('success','proveedor guardado');
     res.redirect('/proveedores');

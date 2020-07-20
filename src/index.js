@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan= require('morgan');
+//const morgan= require('morgan');
 const exphbs=require('express-handlebars');
 const path= require('path');
 const flash = require('connect-flash');
@@ -34,7 +34,7 @@ app.use(session({
 
 }));
 app.use(flash()); //para usar mensajes
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));//para poder aceptar los datos que me envien los usuarios, de esta forma solo acepto string no imgs
 app.use(express.json());
 app.use(passport.initialize());

@@ -31,10 +31,10 @@ router.post('/add',async(req,res)=>{
     };
     console.log(newAlm);  //aaaqui >:v7
 
-    await pool.query('INSERT INTO db_partent.almacen set  ?',[newAlm]); //es como decirle que se espere a que responda pra continuar
+    await pool.query('INSERT INTO db_partent.almacen set  ?',[newAlm]); 
+    //es como decirle que se espere a que responda para continuar
 
-    //ya que public esta declarada en index como global no necesito mencionar toda su ruta
-    req.flash('success','link saved successfully ');
+    req.flash('success','almacen guardado');
     res.redirect('/almacenes');// "el redirect funciona como un return no se lee lo que le sigue" by coren
     
 });
@@ -88,7 +88,7 @@ router.get('/',async(req,res)=>{
 router.get('/:bit',async(req,res)=>{ 
     const {bit} =req.params;
     const estado = (bit==1)? "Activos": "Inactivos";
-    var almacenes = await pool.query('SELECT * FROM db_partent.articulo where est=?',[parseInt(bit)]); 
+    var almacenes = await pool.query('SELECT * FROM db_partent.almacen where est=?',[parseInt(bit)]); 
         almacenes=helpers.activo_in(almacenes)
         console.log(almacenes);
 

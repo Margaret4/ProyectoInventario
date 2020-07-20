@@ -6,7 +6,7 @@ router.get('/add/:codpe', (req, res) => {
     const {codpe}=req.params;
     var articulos=[];
     pool.getConnection(function(err, conn){
-        conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.cod like ? and detalle.codart=articulo.cod)",[codpe], function(err, rows){
+        conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.cod like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
             if(err) {
                 throw err;
             } else {
@@ -35,7 +35,7 @@ router.post('/add/:codpe', async (req, res) => {
         codart,codpe,cant
 
     };
-    console.log(newArt);  //aaaqui >:v7
+    console.log(newArt);  
     pool.getConnection(function(err, conn){
         conn.query('INSERT INTO db_partent.detalle set  ?', [newArt], function(err, rows){
             if(err) 
@@ -45,7 +45,7 @@ router.post('/add/:codpe', async (req, res) => {
             if(err) 
                 throw err;
                 req.flash('success', 'Guardado');
-            res.redirect('/detalle/'+codpe);// "el redirect funciona como un return no se lee lo que le sigue" by coren
+            res.redirect('/detalle/'+codpe);
 
         });
         
@@ -103,7 +103,7 @@ router.get('/edit/:codpe/:codart', async (req, res) => { //se muestra en el link
                 if(err) console.log(err)
                 else{
                     comprados=rows;
-                    conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.codart=articulo.cod)", function(err, rows){
+                    conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.cod like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
                         if(err) {
                             throw err;
                         } else {
@@ -156,7 +156,7 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
             function setArts(value) {
                 antCant = value[0].cant; //le quito la cantidad agregada erroneamente y le sumo lo agregado ahora
                 console.log(antCant)
-                conn.query('update db_partent.articulo set stock= stock + ?  WHERE cod like ?', [newDet.cant-antCant,codiarti+'%'], function(err, rows){
+                conn.query('update db_partent.articulo set stock= stock + ?  WHERE cod like ?', [newDet.cant-antCant,codiart+'%'], function(err, rows){
                     if(err) {
                         console.log("pasa por aqui")
                         throw err;

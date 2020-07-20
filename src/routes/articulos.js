@@ -9,21 +9,19 @@ router.get('/add',(req,res)=>{
 //render == incrusta
 router.post('/add',async(req,res)=>{
     
-    const {name,codigo,uni,canti}= req.body;
+    const {name,codigo,uni,sto}= req.body;
     var cod = (codigo)
-    var stock= 0;//parseDouble(canti);
+    var stock= 0;//parseFloat(stock);
 
     const newArt = {
         cod,name,uni,stock
         
     };
-    console.log(newArt);  //aaaqui >:v7
+    console.log(newArt);  
+    await pool.query('INSERT INTO db_partent.articulo set  ?',[newArt]); 
 
-    await pool.query('INSERT INTO db_partent.articulo set  ?',[newArt]); //es como decirle que se espere a que responda pra continuar
-
-    //ya que public esta declarada en index como global no necesito mencionar toda su ruta
     req.flash('success','articulo guardado ');
-    res.redirect('/articulos');// "el redirect funciona como un return no se lee lo que le sigue" by coren
+    res.redirect('/articulos');
     
 });
 
@@ -63,10 +61,10 @@ router.get('/edit/:codi',async(req,res)=>{ //se muestra en el link
 
 });
 router.post('/edit/:codi',async(req,res)=>{ //pasan encriptados
-    const {name,codigo,uni}= req.body;
+    const {name,codigo,uni,sto}= req.body;
     var antCod = req.params.cod; //req.params es como sacarlo del link
     var cod = codigo; //le cambio el nombre porque tiene que tener el nombre de la base de datos
-    var stock = 0;//parseDouble(stock);
+    var stock= 0;//parseFloat(stock);
     const newArt = {
         cod,name, stock,uni
     };
