@@ -45,10 +45,8 @@ router.get('/delete/:cod/:bit',async(req,res)=>{
                     req.flash('success','articulo cambio de estado ');
                     res.redirect('/articulos');
                 }
-            })
-            
+            })         
     });
-    
 });
 
 router.get('/edit/:codi',async(req,res)=>{ //se muestra en el link 
@@ -65,7 +63,7 @@ router.post('/edit/:codi',async(req,res)=>{ //pasan encriptados
     const {name,codigo,uni,sto}= req.body;
     var antCod = req.params.cod; //req.params es como sacarlo del link
     var cod = codigo; //le cambio el nombre porque tiene que tener el nombre de la base de datos
-    var stock= 0;//parseFloat(stock);
+    var stock= 0;//parseFloat(stock); Al añadir un producto se guarda con stock 0
     const newArt = {
         cod,name, stock,uni
     };

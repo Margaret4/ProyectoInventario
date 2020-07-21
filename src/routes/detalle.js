@@ -6,7 +6,7 @@ router.get('/add/:codpe', (req, res) => {
     const {codpe}=req.params;
     var articulos=[];
     pool.getConnection(function(err, conn){
-        conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.cod like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
+        conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.codpe like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
             if(err) {
                 throw err;
             } else {
@@ -103,7 +103,7 @@ router.get('/edit/:codpe/:codart', async (req, res) => { //se muestra en el link
                 if(err) console.log(err)
                 else{
                     comprados=rows;
-                    conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.cod like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
+                    conn.query("SELECT articulo.* FROM articulo  WHERE est = 1 and NOT EXISTS(SELECT 1 FROM detalle  WHERE detalle.codpe like ? and detalle.codart like articulo.cod)",[codpe], function(err, rows){
                         if(err) {
                             throw err;
                         } else {
