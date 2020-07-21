@@ -30,7 +30,7 @@ router.get('/delete/:cod/:bit',async(req,res)=>{
     console.log(req.params )
     pool.getConnection(function(err, conn){
         if(bit==1)
-            conn.query('delete from db_partent.articulo WHERE cod liek ?',[cod],  function (err, rows){
+            conn.query('delete from db_partent.articulo WHERE cod like ?',[cod],  function (err, rows){
                 if(err) throw err;
                 else{
                     req.flash('success','articulo eliminado ');
@@ -50,6 +50,7 @@ router.get('/delete/:cod/:bit',async(req,res)=>{
     });
     
 });
+
 router.get('/edit/:codi',async(req,res)=>{ //se muestra en el link 
     const {codi} =req.params ;
     //console.log(cod)

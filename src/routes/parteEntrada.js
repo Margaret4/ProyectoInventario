@@ -39,7 +39,7 @@ router.get('/add', (req, res) => {
 
 //render == incrusta
 router.post('/add', async (req, res) => {
-    console.log('aaah >:v');
+
     const { codipro,codialm,codi } = req.body;
     var cod = (codi)
     var codpro = (codipro)
@@ -48,24 +48,43 @@ router.post('/add', async (req, res) => {
         cod,codpro,codalm,
     };
 
-    console.log(newPe);  //aaaqui >:v7
+    console.log(newPe);  
 
-    await pool.query('INSERT INTO db_partent.partent set  ?', [newPe]); //es como decirle que se espere a que responda pra continuar
+    await pool.query('INSERT INTO db_partent.partent set  ?', [newPe]);
 
-    //ya que public esta declarada en index como global no necesito mencionar toda su ruta
+
     req.flash('success', 'parte guardado ');
-    res.redirect('/detalle/add/'+codi);// "el redirect funciona como un return no se lee lo que le sigue" by coren
+    res.redirect('/detalle/add/'+codi);
 
 });
 
 router.get('/delete/:cod', async (req, res) => {
     const { cod } = req.params;
+    var antCant;
+    var detalles;
     pool.getConnection(function(err, conn){
-        conn.query('DELETE FROM db_partent.partent WHERE cod like?', [cod], function(err, rows){
+        
+        conn.query('select * from detalle where codpe like ?', [cod], function(err, rows){
+            if(err) {
+                throw err;
+            }else {
+                detalles=rows;
+                for(var i in detalles){
+                    conn.query('update db_partent.articulo  set stock= stock - ? where cod like ?', [detalles[i].cant,detalles[i].codart+'%'], function(err, rows){
+                        if(err) {
+                            console.log("error al actualizar")
+                            throw err;
+                        }
+                    });
+                }
+            }
+        });
+
+        conn.query('DELETE FROM db_partent.partent WHERE cod like ?', [cod], function(err, rows){
             if(err) {
                 throw err;
             }else{
-                req.flash('success', 'parte guardado');
+                req.flash('success', 'parte eliminado');
                 res.redirect('/parteEntrada/');
             }
 
@@ -107,8 +126,8 @@ router.get('/edit/:codi', async (req, res) => { //se muestra en el link
     })
 });
 
-router.post('/edit/:codi', async (req, res) => { 
-    const {codi}=req.params;
+router.post('/edit/:antcod', async (req, res) => { 
+    const {antcod}=req.params;
     const {newcod, codpro, codalm} = req.body;
     var cod=newcod;
     const newPe = {
@@ -117,7 +136,7 @@ router.post('/edit/:codi', async (req, res) => {
     console.log("<newPe>");
     console.log(newPe);
     console.log("<newPe>");
-    await pool.query('update partent set ? where cod like ?', [newPe, codi]);
+    await pool.query('update partent set ? where cod like ?', [newPe, antcod]);
 
     req.flash('success', 'parte entrada guardado');
     res.redirect('/parteEntrada');

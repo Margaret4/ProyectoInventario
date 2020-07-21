@@ -9,7 +9,7 @@ const {database }=require('./keys');
 const passport=require('passport');
 //Initializations 
 const app = express();
-require('./lib/passport');
+//require('./lib/passport');
 //settings
 app.set('port',process.env.PORT || 4000);
 //un puerto en el ambiente o 4000

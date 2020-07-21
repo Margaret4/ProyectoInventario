@@ -140,16 +140,13 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
     console.log("<newPe>");
     var antCant;
     //2 situaciones, 
-    //cambia codigo, actualizar stock del articulo  anteriormente afectado,
     //cambia cantidad, solo actualizar el  
     if(codiart==newcodart){
-        console.log("mismo codigo")
         pool.getConnection(function(err, conn){
             conn.query('select * from db_partent.detalle WHERE codpe like ? and codart like ?', [codpe, codiart+'%'], function(err, rows){
                 if(err) {
                     throw err;
                 } else {
-                    
                     setArts(rows);
                 }
             });
@@ -158,7 +155,6 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
                 console.log(antCant)
                 conn.query('update db_partent.articulo set stock= stock + ?  WHERE cod like ?', [newDet.cant-antCant,codiart+'%'], function(err, rows){
                     if(err) {
-                        console.log("pasa por aqui")
                         throw err;
                     }
                 });
@@ -174,7 +170,7 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
     
         })
     }
-    
+    //cambia codigo, actualizar stock del articulo  anteriormente afectado,
     else{
         console.log("diferente codigo")
         pool.getConnection(function(err, conn){

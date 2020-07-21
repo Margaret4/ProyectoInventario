@@ -22,7 +22,7 @@ router.get('/add',(req,res)=>{
 });
 //render == incrusta
 router.post('/add',async(req,res)=>{
-    console.log('aaah >:v');
+    
     const {name,codigo,dir}= req.body;
     cod = (codigo)
     const newAlm = {
@@ -42,11 +42,10 @@ router.post('/add',async(req,res)=>{
 router.get('/delete/:cod/:borrar',async(req,res)=>{
     const {cod,borrar} =req.params ;
     if(borrar=="1"){
-        await pool.query('delete from db_partent.almacen WHERE cod =?',[parseInt(cod)]);        
-
-        res.redirect('/almacenes');
+        await pool.query('delete from db_partent.almacen WHERE cod like ?',[cod]);        
+        req.flash('success','almacen eliminado');
     }
-    await pool.query('update db_partent.almacen SET est=not est WHERE cod like ?',[cod+'%']);
+    else await pool.query('update db_partent.almacen SET est=not est WHERE cod like ?',[cod+'%']);
     req.flash('success','almacen cambio de estado');
 
     res.redirect('/almacenes');
