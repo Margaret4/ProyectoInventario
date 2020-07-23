@@ -42,9 +42,8 @@ router.post('/add/:codpe', async (req, res) => {
                 throw err;
         });
         conn.query('update db_partent.articulo  set stock= stock+ ? where cod like ?', [newArt.cant,codart+'%'], function(err, rows){
-            if(err) 
-                throw err;
-                req.flash('success', 'Guardado');
+            if(err) throw err;
+            req.flash('success', 'Guardado');
             res.redirect('/detalle/'+codpe);
 
         });
@@ -160,7 +159,7 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
                 });
                 conn.query('update db_partent.detalle set ?  WHERE codpe like ? and codart like ?', [newDet,codpe, codiart+'%'], function(err, rows){
                     if(err) 
-                        throw err;
+                    throw err;
                     else{
                         req.flash('success', 'detalle guardado');
                         res.redirect('/detalle/'+codpe);        
@@ -191,7 +190,7 @@ router.post('/edit/:codpe/:codiart', async (req, res) => { //pasan encriptados
                     } 
                 });
                 //sumo lo que se debia al producto correcto
-                conn.query('update db_partent.articulo set  stock = stock + ?  where cod like ?', [newDet.cant-antCant, newcodart+'%'], function(err, rows){
+                conn.query('update db_partent.articulo set  stock = stock + ?  where cod like ?', [newDet.cant, newcodart+'%'], function(err, rows){
                     if(err) {
                         throw err;
                     }

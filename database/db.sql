@@ -8,7 +8,7 @@ CREATE TABLE `almacen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `articulo` (
-  `cod` varchar(10) NOT NULL,
+  `cod` varchar(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `stock` float NOT NULL,
   `uni` varchar(5) NOT NULL,
