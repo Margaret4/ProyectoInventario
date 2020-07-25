@@ -17,7 +17,7 @@ router.post('/add',async(req,res)=>{
         cod,name,dir
         
     };
-    console.log(newAlm);  //aaaqui >:v7
+    console.log(newAlm);  
 
     await pool.query('INSERT INTO db_partent.almacen set  ?',[newAlm]); 
     //es como decirle que se espere a que responda para continuar
@@ -56,7 +56,8 @@ router.post('/edit/:cod',async(req,res)=>{ //pasan encriptados
     console.log("<newAlm>");
     console.log(newAlm);
     console.log("<newAlm>");
-    await pool.query('update almacen set ? where cod = ?',[newAlm,antCod]);
+    await pool.query('update almacen set ? where cod like ?',[newAlm,antCod]);
+
     
     req.flash('success','almacen guardado');
     res.redirect('/almacenes');
